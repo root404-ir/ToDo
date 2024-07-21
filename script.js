@@ -10,14 +10,20 @@ function createListElement() {
     var li = document.createElement("li")
     li.appendChild(document.createTextNode(userInput.value))
     ul.appendChild(li)
+    var span = document.createElement("span")
+    li.appendChild(span)
+    span.classList.add('delete')
     // InputEvent.value = ""
     function crossOf() {
-        li.classList.toggle('done')
-        li.appendChild(document.createTextNode("انچام شده"))
-
+        if (li.classList.toggle('done')) {
+            span.classList.remove('delete')
+            span.innerHTML = "انجام دادم"
+        } else {
+            span.classList.add('delete')
+        }
     }
-    li.addEventListener('click', crossOf)
 
+    li.addEventListener('click', crossOf)
     var delBtn = document.createElement("button")
     delBtn.appendChild(document.createTextNode("X"))
     li.appendChild(delBtn)
@@ -37,7 +43,6 @@ function addListAfterClickKeyPress(e) {
     if (inputLength() > 0 && e.which === 13) {
         createListElement()
     }
-
 }
 userInput.addEventListener('focus', function () {
     var errMessage = document.getElementById('error')
